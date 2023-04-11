@@ -44,7 +44,7 @@ const ComicCard: FC<ComicCardProps>= ({id, title, description, thumbnail}) => {
       </CardContent>
       <CardActions>
         <Button size="small" onClick={()=> Router.push(`/comics/${id}`)}>Ver detalle</Button>
-        <Button size="small">Comprar</Button>
+        <Button size="small" onClick={()=>Router.push(`/checkout?comicId=${id}`)}>Comprar</Button>
       </CardActions>
     </Card>
     

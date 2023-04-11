@@ -3,6 +3,7 @@ import { Box, Button, Container, Paper, Typography } from '@mui/material'
 import styled from "@emotion/styled"
 import AsocCharacterList from 'dh-marvel/components/list/AsocCharacterList'
 import {ComicDetail} from 'dh-marvel/components/cards/ComicDetail.types'
+import  Router  from 'next/router'
 
 
 export type ComicDetailCardProps = {
@@ -13,6 +14,7 @@ export type ComicDetailCardProps = {
 const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
 
     const {
+        id,
         title,
         description,
         thumbnail,
@@ -60,6 +62,7 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     <Button variant='contained' 
                     sx={{width:'50%', alignSelf:'center'}}
                     disabled={stock===0? true : false}
+                    onClick={()=>Router.push(`/checkout?comicId=${id}`)}
                     > {stock===0? 'Sin Stock': 'Comprar' }</Button>
                 </Box>
 
