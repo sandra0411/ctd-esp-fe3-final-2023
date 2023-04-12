@@ -33,6 +33,11 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
         
     })
 
+    const goToProduct= ()=>{
+        document.cookie = "Product="+title+';max-age='+60*1
+        Router.push(`/checkout?comicId=${id}`)
+    }
+
   return (
     <Container sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
 
@@ -62,7 +67,7 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     <Button variant='contained' 
                     sx={{width:'50%', alignSelf:'center'}}
                     disabled={stock===0? true : false}
-                    onClick={()=>Router.push(`/checkout?comicId=${id}`)}
+                    onClick={goToProduct}
                     > {stock===0? 'Sin Stock': 'Comprar' }</Button>
                 </Box>
 

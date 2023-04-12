@@ -6,7 +6,7 @@ import { FormContext } from './CheckOutStepper'
 type StepperNavigationType={
     activeStep:number,
     handleBack: ()=> void,
-    handleNext: ()=> void
+    handleNext: ()=> void,
     
 }
 
@@ -31,11 +31,11 @@ const StepperNavigation = () => {
           
             <Button  
             variant='outlined' 
-            disabled={activeStep === 3}
-            onClick={activeStep ===2 ? undefined : handleNext}
-            type={activeStep ===2 ? 'submit' : 'button'}
+            disabled={activeStep === 4? true:false}
+            onClick={ activeStep===3? undefined: handleNext}
+            type={activeStep ===3 ? 'submit' : 'button'}
             sx={{fontWeight:'700', mb:2}}>
-              {activeStep === 2 ? 'Finish' : 'Next'}
+              {activeStep > 1 ? 'Finish' : 'Next'}
             </Button>
           </Box>
   )

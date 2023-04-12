@@ -46,7 +46,7 @@ const Index: NextPage<HomeProps> = ({comics, pages}) => {
                 <link rel="icon" href="/favicon.ico"/>
             </Head>
 
-            <BodySingle title={"Comics List"} >
+            <BodySingle title={"Marvel Comics"}>
 
                 <Home comics={comics} pages={pages}/>
 

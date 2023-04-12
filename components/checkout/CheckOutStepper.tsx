@@ -2,16 +2,19 @@ import * as React from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
-import { Stack } from '@mui/material';
+import { Alert, Snackbar, Stack, Typography } from '@mui/material';
 import PersonalDataForm from './PersonalDataForm';
 import DeliveryDataForm from './DeliveryDataForm';
 import StepperNavigation from './StepperNavigation';
 import { FormProvider, useForm } from 'react-hook-form';
-import * as yup from 'yup'
+import { CheckoutDataSchema } from './Schema';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ComicDetail } from '../cards/ComicDetail.types';
 import CheckOutCard from '../cards/CheckOutCard';
 import PaymentDataForm from './PaymentDataForm';
+import {useRouter} from 'next/router';
+import { CheckoutInput, CheckoutDataType } from 'dh-marvel/features/checkout/checkout.types';
+
 
 
 
@@ -23,39 +26,6 @@ const defaultValues={
 
 export const FormContext = React.createContext(defaultValues);
 
-type CheckoutDataType = {
-  name: string,
-  lastname: string,
-  email:string,
-  adress: string,
-  apartment?:string,
-  floor?: number,
-  city: string,
-  province: string,
-  zipCode: string,
-  cardNumber: number,
-  ownerName: string,
-  expirationDate: string,
-  securityCode: number
-}
-
-export const CheckoutDataSchema=yup.object({
-  name: yup.string().required('Name is required').min(3, 'The name should have at least 3 chars'),
-  lastname: yup.string().required('Last name is required').min(2, 'The last name should have at least 2 chars'),
-  email: yup.string().email('Email must has this format: email@whatever.com').required('email is required'),
-  adress: yup.string().required('Adress is required').min(3, 'The adress should have at least 3 chars'),
-  apartment: yup.string().optional().max(1, 'The Apartment should have just 1 char'),
-  floor: yup.number().positive('Floor must be a positive number').integer('Floor must be an integer number').optional().max(3, 'The name should have at least 3 chars'),
-  city: yup.string().required('City is required').min(3, 'The city should have at least 3 chars'),
-  province: yup.string().required('Province is required').min(3, 'The Province should have at least 3 chars'),
-  zipCode: yup.string().required('Zip code is required').min(3, 'The zip code should have at least 4 chars'),
-  cardNumber: yup.number().positive().integer().min(16, 'The Card number must exactly 16 digits').required('Card number is required'),
-  ownerName: yup.string().required('Owner name is required').min(3,'Owner name must has at least 3 characters'),
-  expirationDate: yup.string().required('Expiration date is required').min(10, 'The date must has this format 01-01-2025'),
-  securityCode: yup.number().positive().integer().min(3, 'Security code mas has 3 digits')
-}).required();
-
-
 export type ComicCheckoutProps = {
   comic: ComicDetail
 }
@@ -65,7 +35,10 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
 
   const {title, thumbnail, price} = comic
   const [activeStep, setActiveStep] = React.useState<number>(0);
+  const [open, setOpen] = React.useState(false)
+  const [errorState, setErrorState]= React.useState({type:'', message:''})
 
+  const router= useRouter();
 
   const methods = useForm<CheckoutDataType>({
     mode: 'onChange', 
@@ -73,40 +46,109 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
     defaultValues:{
         name:'Sandra',
         lastname:'Divan',
-        email: 'sandrapaludivan@gmail.com',
+        email: 'sandra@gmail.com',
         adress: 'Pepe 222' ,
         apartment: 'C',
         floor: undefined,
         city: 'Córdoba',
         province: 'Córdoba',
         zipCode: '6400',
-        cardNumber: 2222333344445555,
+        cardNumber: '4242424242424242',
         ownerName: 'Sandra',
         expirationDate: '22-08-2025',
-        securityCode: 333
+        securityCode: '333'
         
     }
 })
   
+
+const sendData = async(orderData:CheckoutInput)=>{
+
+
+  const response= await fetch('/api/checkout', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json;charset=utf-8'
+    },
+    body: JSON.stringify(orderData)
+  })
+
+  if(!response.ok){
+    
+    let result = await response.json()
+    console.log(result.message)
+    setErrorState({...errorState, message: result.message, type: result.error})
+    console.log('desde error:' + errorState.type)
+    setOpen(true)
+    
+  }else{
+
+    setErrorState({...errorState, message: '', type: ''})
+    let result = await response.json()
+    console.log(result)
+
+    setTimeout(()=>{
+      router.push(
+        {pathname: '/confirmation',
+         query:{purchaseInfo: JSON.stringify(result)} })
+    }, 1000)
+    
+  }
+
+
+} 
+
+  const onSubmitData = (data:CheckoutDataType) => {
+    
+    const buyOrder: CheckoutInput= {
+      customer: {
+          name: data.name ,
+          lastname: data.lastname ,
+          email: data.email,
+          address: {
+              address1:data.adress ,
+              address2: data.apartment,
+              city: data.city ,
+              state: data.province,
+              zipCode:data.zipCode ,
+          }
+      },
+      card: {
+          number: data.cardNumber,
+          cvc: data.securityCode,
+          expDate: data.expirationDate,
+          nameOnCard: data.ownerName ,
+      },
+      order: {
+          name: title,
+          image: thumbnail.path+'.'+thumbnail.extension,
+          price: price,
+      }
+  }
+
+  console.log('Hago el post de la data');
+  
+  sendData(buyOrder)
+  
+  
+  }
   
 
-  const handleNext = (data:CheckoutDataType | undefined) => {
-    
-    if(activeStep === 2){
-
-      console.log('tengo que hacer el post de la data');
-      console.log(data)
-    }else{
+  const handleNext = () => {
       
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
       console.log('desde <2: ' + activeStep );
 
-    };
+   
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
+
+  const handleClose =()=>{
+    setOpen(false)
+  }
 
 
   return (
@@ -132,13 +174,16 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
 
         
         <FormProvider {...methods}>
-          <form onSubmit={methods.handleSubmit(handleNext)}>
+          <form onSubmit={methods.handleSubmit(onSubmitData)}>
 
             {activeStep === 0 && <PersonalDataForm/>}
             {activeStep === 1 && <DeliveryDataForm/>}
             {activeStep === 2 && <PaymentDataForm/>}
+            {activeStep === 3 && <Typography mb={2} color={errorState.type?'red':'green'} sx={{align:'center'}}>
+              {errorState.type? `Ups! An error of type ${errorState.type} has occurred, please check the uploaded data. Thanks!` : 'Processing Order...'}</Typography>}
 
-            <FormContext.Provider value={{activeStep, handleBack, handleNext}}>
+
+          <FormContext.Provider value={{activeStep, handleBack, handleNext}}>
             <StepperNavigation/>
           </FormContext.Provider> 
 
@@ -149,6 +194,12 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
 
 
       <CheckOutCard title={title} thumbnail={thumbnail} price={price}/>
+
+      <Snackbar anchorOrigin={{vertical:'bottom', horizontal: 'center'}} open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
+        {errorState.message}
+      </Alert>
+    </Snackbar>
       
       
       

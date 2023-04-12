@@ -40,7 +40,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
     return (
 
         <>
-            <Stack spacing={2} sx={{ mb: 4, mt:4 }}>
+            <Stack spacing={2} sx={{ mb: 4, mt:4, alignItems:'center' }} >
                 <Pagination count={totalPages} page={page} onChange={handleChange} />
             </Stack>
 
@@ -83,7 +83,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
 
             </Grid>
 
-            <Stack spacing={2} sx={{ mb: 4, mt:4 }}>
+            <Stack spacing={2} sx={{ mb: 4, mt:4, alignItems:'center' }}>
                 <Pagination count={totalPages} page={page} onChange={handleChange} />
             </Stack>
         </>
