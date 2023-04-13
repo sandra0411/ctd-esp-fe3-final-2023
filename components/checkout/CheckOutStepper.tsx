@@ -33,10 +33,10 @@ export type ComicCheckoutProps = {
 /* ############################### */
 export default function CheckOutStepper({comic}:ComicCheckoutProps) {
 
-  const {title, thumbnail, price} = comic
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [open, setOpen] = React.useState(false)
   const [errorState, setErrorState]= React.useState({type:'', message:''})
+
 
   const router= useRouter();
 
@@ -60,7 +60,20 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
         
     }
 })
+
+if (!comic) {
+
+  if (typeof window !== 'undefined') {
+    router.push('/');
+  }
+  return (
+
+    <Typography variant='h4' align='center' width={'90%'} color={'red'}>Error: You need to select a comic to buy it</Typography>
   
+  );
+}
+
+const {title, thumbnail, price} = comic
 
 const sendData = async(orderData:CheckoutInput)=>{
 
@@ -76,16 +89,13 @@ const sendData = async(orderData:CheckoutInput)=>{
   if(!response.ok){
     
     let result = await response.json()
-    console.log(result.message)
     setErrorState({...errorState, message: result.message, type: result.error})
-    console.log('desde error:' + errorState.type)
     setOpen(true)
     
   }else{
 
     setErrorState({...errorState, message: '', type: ''})
     let result = await response.json()
-    console.log(result)
 
     setTimeout(()=>{
       router.push(
@@ -125,8 +135,6 @@ const sendData = async(orderData:CheckoutInput)=>{
           price: price,
       }
   }
-
-  console.log('Hago el post de la data');
   
   sendData(buyOrder)
   
@@ -137,8 +145,6 @@ const sendData = async(orderData:CheckoutInput)=>{
   const handleNext = () => {
       
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
-      console.log('desde <2: ' + activeStep );
-
    
   };
 
@@ -150,8 +156,11 @@ const sendData = async(orderData:CheckoutInput)=>{
     setOpen(false)
   }
 
+ 
 
   return (
+
+    
     <Stack sx={{ width: '80%', alignContent: 'center', margin:'0 auto', mt:6, flexDirection:'row'} }>
       
       <Stack sx={{ width: '70%'}}>

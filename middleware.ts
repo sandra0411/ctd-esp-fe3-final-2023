@@ -7,11 +7,15 @@ export function middleware(req: NextRequest) {
     //puede acceder a las rutas, de lo contrario no
     const selectProduct = req.cookies.get('Product')
     const url= req.nextUrl.pathname
+    console.log('*********************************aca pasando por el middleware antes del if')
 
     if(url.startsWith('/checkout') || url.startsWith('/confirmation')){
 
+        console.log('*********************************aca pasando por el middleware')
+
         if(!selectProduct){
-            return NextResponse.redirect('http://localhost:3000/')
+            console.log('******************no se encontró el producto, vamos al home')
+            return NextResponse.redirect('/')
         }
     }
     

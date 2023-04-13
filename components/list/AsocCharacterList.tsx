@@ -24,32 +24,6 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
         setOpen(!open);
     };
 
-    /* useEffect(()=> {
-
-        const queTrae= async()=>{
-
-            const params = new URLSearchParams()
-        params.append('id', `${idCharacter}`)
-        const query = params.toString()
-        const response = await fetch(`http://localhost:3000/api/character?${query}`)
-        const data: any = await response.json()
-        const dataCharacter = data.results
-        setCharac(dataCharacter)
-
-        console.log('lo que trae character: '+ dataCharacter)
-
-        }
-
-        queTrae();
-
-    }, [idCharacter])
-
-    useEffect(()=>{
-
-        const character0= characters[0].resourceURI.substring(47)
-        setIdCharacter(character0)
-
-    }, []) */
 
 
     return (

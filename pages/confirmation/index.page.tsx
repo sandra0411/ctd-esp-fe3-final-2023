@@ -9,9 +9,20 @@ const ConfirmationPage = () => {
 
 const router= useRouter();
 const {purchaseInfo}=router?.query
-const info = JSON.parse(purchaseInfo as string);
-console.log('desde confirmation:')
-console.log(info)
+const info = purchaseInfo ? JSON.parse(purchaseInfo as string) : null;
+
+
+if (!info) {
+
+    if (typeof window !== 'undefined') {
+      router.push('/');
+    }
+    return (
+  
+      <Typography variant='h4' align='center' width={'90%'} color={'red'}>Error: You need to select a comic to buy it</Typography>
+    
+    );
+  }
 
 const customer= info.data.customer
 const order= info.data.order
@@ -29,7 +40,7 @@ return (
 
         <Stack sx={{mb:2}}>
             <Typography variant='h6' sx={{fontWeight:'800', mb:1}}>{`${customer.name} ${customer.lastname}`}</Typography>
-            <Typography variant='h6' sx={{mb:1}}>We will send this great comic to <strong>{`${customer.address.address1}`}</strong> {`city of 
+            <Typography variant='h6' sx={{mb:1}}>We will send you this great comic to <strong>{`${customer.address.address1}`}</strong> {`city of 
             ${customer.address.city} (${customer.address.state}).`}</Typography>
             <Typography> You paid <strong>{`U$S${order.price}`}</strong> </Typography>
             

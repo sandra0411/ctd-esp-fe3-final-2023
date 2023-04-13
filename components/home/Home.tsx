@@ -29,7 +29,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
         const params = new URLSearchParams()
         params.append('page', `${value}`)
         const query = params.toString()
-        const response = await fetch(`http://localhost:3000/api/comics?${query}`)
+        const response = await fetch(`/api/comics?${query}`)
         const data: dataComics = await response.json()
         const dataComic = data.results
         setComicsData(dataComic)
