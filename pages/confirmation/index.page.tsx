@@ -22,7 +22,7 @@ if (!info) {
       <Typography variant='h4' align='center' width={'90%'} color={'red'}>Error: You need to select a comic to buy it</Typography>
     
     );
-  }
+}
 
 const customer= info.data.customer
 const order= info.data.order

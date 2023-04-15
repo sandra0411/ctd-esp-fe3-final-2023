@@ -12,7 +12,7 @@ const handler = async (req:NextApiRequest, res: NextApiResponse<any>) =>{
     
         const {id}= req.query
         const pageAsNumber = parseInt(id as string);
-        console.log('soy el puto id:########################### ' + pageAsNumber)
+        console.log('soy el id:########################### ' + pageAsNumber)
         
     
         const response= await getCharacter(pageAsNumber)

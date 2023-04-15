@@ -37,7 +37,7 @@ const Faqs:NextPage<FaqProps> = ({faq}) => {
     
     <Container sx={{marginTop:10}}>
 
-      <Typography variant="h1" component="h2" sx={{fontSize:50, mb:5, color: 'yellow' 
+      <Typography variant="h1" component="h2" sx={{fontSize:50, mb:5, color: 'Gray' 
       }}>
         Preguntas Frecuentes
       </Typography>
