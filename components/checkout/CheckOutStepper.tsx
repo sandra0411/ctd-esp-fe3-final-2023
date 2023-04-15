@@ -18,10 +18,11 @@ import { CheckoutInput, CheckoutDataType } from 'dh-marvel/features/checkout/che
 
 
 
+
 const defaultValues={
   activeStep: 0,
   handleBack: () => console.log(''), 
-  handleNext: (data=undefined) => console.log(''),
+  handleNext: () => console.log(''),
 }
 
 export const FormContext = React.createContext(defaultValues);

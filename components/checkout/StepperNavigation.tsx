@@ -3,7 +3,7 @@ import React, { FC, useContext } from 'react'
 import { FormContext } from './CheckOutStepper'
 
 
-type StepperNavigationType={
+export type StepperNavigationType={
     activeStep:number,
     handleBack: ()=> void,
     handleNext: ()=> void,
