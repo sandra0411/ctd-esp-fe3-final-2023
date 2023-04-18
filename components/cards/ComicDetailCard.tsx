@@ -4,6 +4,9 @@ import styled from "@emotion/styled"
 import AsocCharacterList from 'dh-marvel/components/list/AsocCharacterList'
 import {ComicDetail} from 'dh-marvel/components/cards/ComicDetail.types'
 import  Router  from 'next/router'
+import useMediaQuery from '@mui/material/useMediaQuery';
+
+
 
 
 export type ComicDetailCardProps = {
@@ -12,6 +15,9 @@ export type ComicDetailCardProps = {
 
 
 const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
+    
+    
+    const matches = useMediaQuery('(min-width:700px)');
 
     const {
         id,
@@ -25,7 +31,7 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
 
 
     const Img = styled('img')({
-        width: 300,
+        width: matches? 300: 250,
         height: '100%',
         objectFit: 'contain',
         objectPosition: 'center',
@@ -39,11 +45,17 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
     }
 
   return (
-    <Container sx={{display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center'}}>
+    <Container sx={{
+                   display:'flex', 
+                   flexDirection:'column', 
+                   alignItems:'center', 
+                   justifyContent:'center'
+                }}>
 
             <Paper
                 sx={{
                     display: 'flex',
+                    flexDirection: matches? 'row' : 'column',
                     alignItems: 'center',
                     gap: 2,
                     overflow: 'hidden',
@@ -58,14 +70,15 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     display: 'flex', 
                     flexDirection:'column', 
                     alignItems:'center',
-                    /* justifyContent:'flex-between',  */
-                    gap:5,                    
-                    height:'fit-content',
+                    justifyContent:'space-around', 
+                    gap:3,                    
+                    height:'100%',
+                    
                     }}>
-                    <Typography variant='h4'>{title}</Typography>
-                    <Typography variant='body1'>{description}</Typography>
+                    <Typography variant='h5' textAlign={'center'} maxWidth={300} sx={{fontSize: matches? 24: 20, fontWeight: 600}}>{title}</Typography>
+                    <Typography variant='body1' textAlign={'justify'} maxWidth={300} sx={{ml: matches? 0: 2, mr: matches? 0: 2}}>{description? description: 'Description coming soon'}</Typography>
                     <Button variant='contained' 
-                    sx={{width:'50%', alignSelf:'center'}}
+                    sx={{width:'50%', alignSelf:'center',}}
                     disabled={stock===0? true : false}
                     onClick={goToProduct}
                     > {stock===0? 'Sin Stock': 'Comprar' }</Button>
@@ -75,7 +88,7 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     <Typography variant='body1'>Before</Typography>
                     <Typography variant='h6'><del> {`U$S ${oldPrice}`}</del> </Typography>
                     <Typography variant='body1'>Now!!</Typography>
-                    <Typography variant='h6' color={'red'}>{`U$S ${price}`}</Typography>
+                    <Typography variant='h6' color={'red'} sx={{mb:matches? '' : '2', fontWeight: 600}}>{`U$S ${price}`} </Typography>
                 </Box>
 
             </Paper>

@@ -3,6 +3,8 @@ import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
 import { getCharacter } from 'dh-marvel/services/marvel/marvel.service'
 import Link from 'next/link'
 import React, { FC, useEffect } from 'react'
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
 
 
 export type Character = {
@@ -16,9 +18,12 @@ type AsocCharacterListProps = {
 
 const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
 
+
     const [open, setOpen] = React.useState(false);
     const [idCharacter, setIdCharacter]= React.useState<string>('')
     const [charac, setCharac]= React.useState<string>('')
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
     const handleClick = () => {
         setOpen(!open);
@@ -47,6 +52,7 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                         color: 'primary',
                         fontWeight: 'medium',
                         variant: 'h6',
+                        fontSize: matches? 20 : 16
                     }} />
                 {open ? <ExpandLess /> : <ExpandMore />}
             </ListItemButton>

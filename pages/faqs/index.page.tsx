@@ -6,6 +6,8 @@ import {faqsData} from 'dh-marvel/components/faqs/faqsData'
 import AccordionComp from 'dh-marvel/components/accordion/AccordionComp'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { Stack } from '@mui/material'
 
 
 type Faq = {
@@ -15,7 +17,7 @@ type Faq = {
 }
 
 export const getStaticProps: GetStaticProps = ()=>{
-
+  
 const faq:Faq[] = faqsData
 
 return{
@@ -32,17 +34,33 @@ type FaqProps = {
 
 const Faqs:NextPage<FaqProps> = ({faq}) => {
 
+  const matchesTablet = useMediaQuery('(min-width:600px)');
 
   return (
     
-    <Container sx={{marginTop:10}}>
+    <Container sx={{
+                    marginTop:5, 
+                    display: 'flex', 
+                    flexDirection:'column', 
+                    justifyContent:'start',
+                    }}>
 
-      <Typography variant="h1" component="h2" sx={{fontSize:50, mb:5, color: 'Gray' 
+      <Typography 
+      variant="h1" 
+      component="h2" 
+      sx={{
+        fontSize:{ xs: 25, sm: 45, md: 50 }, 
+        mb:5, 
+        color: 'Gray', 
+        alignSelf:'center',
+        fontWeight:{ xs: 600, sm: 400}
       }}>
         Preguntas Frecuentes
       </Typography>
 
       {faq.map(q => <AccordionComp key={q.id} title={q.question} text={q.answer}/>)}
+      
+
 
     </Container>
   )

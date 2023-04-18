@@ -41,7 +41,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
 
         <>
             <Stack spacing={2} sx={{ mb: 4, mt:4, alignItems:'center' }} >
-                <Pagination count={totalPages} page={page} onChange={handleChange} />
+                <Pagination count={totalPages} page={page} onChange={handleChange} boundaryCount={0} />
             </Stack>
 
             <Grid container spacing={2}>
@@ -55,7 +55,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
 
                         comics?.map(comic =>
 
-                            <Grid key={comic.id} item xs={4} sx={{mb:4}}>
+                            <Grid key={comic.id} item xs={12} sm={6} md={4} sx={{mb:4}}>
                             <ComicCard
                                 id={comic.id}
                                 title={comic.title}
@@ -68,7 +68,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
                         
                         comicsData?.map(comic =>
 
-                        <Grid key={comic.id} item xs={4} sx={{mb:4}}>
+                        <Grid key={comic.id} item xs={12} sm={6} md={4} sx={{mb:4}}>
                             <ComicCard
                                 id={comic.id}
                                 title={comic.title}
@@ -84,7 +84,7 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
             </Grid>
 
             <Stack spacing={2} sx={{ mb: 4, mt:4, alignItems:'center' }}>
-                <Pagination count={totalPages} page={page} onChange={handleChange} />
+                <Pagination count={totalPages} page={page} onChange={handleChange} boundaryCount={0}/>
             </Stack>
         </>
     )
