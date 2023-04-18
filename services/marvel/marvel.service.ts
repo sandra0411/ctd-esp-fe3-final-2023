@@ -1,11 +1,13 @@
 import {generateAuthenticationString} from "dh-marvel/services/marvel/marvel-auth.service";
-
+interface MyRequestInit extends RequestInit {
+    timeout?: number;
+  }
 const MARVEL_API_URL = process.env.MARVEL_API_URL;
 
 const fetchApi = async (endpoint: string, urlParams?: string) => {
     const authString = generateAuthenticationString();
     const url = `${MARVEL_API_URL}/${endpoint}?${authString}&${urlParams || ''}`
-    const requestInit: RequestInit = {
+    const requestInit: MyRequestInit = {
         timeout: 10000,
         method: 'GET',
         headers: {
