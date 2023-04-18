@@ -8,7 +8,7 @@ const fetchApi = async (endpoint: string, urlParams?: string) => {
     const authString = generateAuthenticationString();
     const url = `${MARVEL_API_URL}/${endpoint}?${authString}&${urlParams || ''}`
     const requestInit: MyRequestInit = {
-        timeout: 10000,
+        timeout: 12000,
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
