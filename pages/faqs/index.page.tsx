@@ -7,7 +7,7 @@ import AccordionComp from 'dh-marvel/components/accordion/AccordionComp'
 import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { Stack } from '@mui/material'
+
 
 
 type Faq = {

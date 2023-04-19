@@ -14,7 +14,7 @@ import CheckOutCard from '../cards/CheckOutCard';
 import PaymentDataForm from './PaymentDataForm';
 import {useRouter} from 'next/router';
 import { CheckoutInput, CheckoutDataType } from 'dh-marvel/features/checkout/checkout.types';
-
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 
@@ -33,6 +33,8 @@ export type ComicCheckoutProps = {
 
 /* ############################### */
 export default function CheckOutStepper({comic}:ComicCheckoutProps) {
+
+  const matches = useMediaQuery('(min-width:700px)');
 
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [open, setOpen] = React.useState(false)
@@ -162,11 +164,11 @@ const sendData = async(orderData:CheckoutInput)=>{
   return (
 
     
-    <Stack sx={{ width: '80%', alignContent: 'center', margin:'0 auto', mt:6, flexDirection:'row'} }>
+    <Stack sx={{ width: '80%', alignContent: 'center', alignItems: 'center' , margin:'0 auto', mt:6, flexDirection: matches? 'row': 'column-reverse'} }>
       
-      <Stack sx={{ width: '70%'}}>
+      <Stack sx={{ width: matches? '70%' : '90%'}}>
 
-        <Stepper activeStep={activeStep} sx={{mb:4}}>
+        <Stepper activeStep={activeStep} sx={{mb:4}} orientation= {matches? 'horizontal' :'vertical'}>
 
           <Step>
             <StepLabel>Personal data</StepLabel>
@@ -209,7 +211,7 @@ const sendData = async(orderData:CheckoutInput)=>{
       <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>
         {errorState.message}
       </Alert>
-    </Snackbar>
+      </Snackbar>
       
       
       
