@@ -38,6 +38,7 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
 
   const [activeStep, setActiveStep] = React.useState<number>(0);
   const [open, setOpen] = React.useState(false)
+  const [openMessage, setOpenMessage] = React.useState(false)
   const [errorState, setErrorState]= React.useState({type:'', message:''})
 
 
@@ -62,7 +63,10 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
         securityCode: '333'
         
     }
-})
+  })
+
+  
+  
 
 if (!comic) {
 
@@ -112,43 +116,50 @@ const sendData = async(orderData:CheckoutInput)=>{
 } 
 
   const onSubmitData = (data:CheckoutDataType) => {
+
+      const buyOrder: CheckoutInput= {
+        customer: {
+            name: data.name ,
+            lastname: data.lastname ,
+            email: data.email,
+            address: {
+                address1:data.adress ,
+                address2: data.apartment,
+                city: data.city ,
+                state: data.province,
+                zipCode:data.zipCode ,
+            }
+        },
+        card: {
+            number: data.cardNumber,
+            cvc: data.securityCode,
+            expDate: data.expirationDate,
+            nameOnCard: data.ownerName ,
+        },
+        order: {
+            name: title,
+            image: thumbnail.path+'.'+thumbnail.extension,
+            price: price,
+        }
+    }
     
-    const buyOrder: CheckoutInput= {
-      customer: {
-          name: data.name ,
-          lastname: data.lastname ,
-          email: data.email,
-          address: {
-              address1:data.adress ,
-              address2: data.apartment,
-              city: data.city ,
-              state: data.province,
-              zipCode:data.zipCode ,
-          }
-      },
-      card: {
-          number: data.cardNumber,
-          cvc: data.securityCode,
-          expDate: data.expirationDate,
-          nameOnCard: data.ownerName ,
-      },
-      order: {
-          name: title,
-          image: thumbnail.path+'.'+thumbnail.extension,
-          price: price,
-      }
-  }
-  
-  sendData(buyOrder)
+    sendData(buyOrder)
+    
+    
   
   
   }
   
+  const schemaValid= () => {
+
+    return CheckoutDataSchema.isValidSync(methods.getValues())
+  }
+
+  const isValid= schemaValid()
+    
 
   const handleNext = () => {
-      
-      setActiveStep((prevActiveStep) => prevActiveStep + 1);
-   
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
@@ -156,6 +167,9 @@ const sendData = async(orderData:CheckoutInput)=>{
   };
 
   const handleClose =()=>{
+    setOpen(false)
+  }
+  const handleCloseMessage =()=>{
     setOpen(false)
   }
 
@@ -191,8 +205,15 @@ const sendData = async(orderData:CheckoutInput)=>{
             {activeStep === 0 && <PersonalDataForm/>}
             {activeStep === 1 && <DeliveryDataForm/>}
             {activeStep === 2 && <PaymentDataForm/>}
-            {activeStep === 3 && <Typography mb={2} color={errorState.type?'red':'green'} sx={{align:'center'}}>
-              {errorState.type? `Ups! An error of type ${errorState.type} has occurred, please check the uploaded data. Thanks!` : 'Processing Order...'}</Typography>}
+            {activeStep === 3 && <Typography mb={2} color={errorState.type || !isValid ?'red':'green'} sx={{align:'center', fontSize: !isValid? 25: ''}}>
+              
+            {
+            isValid?
+            errorState.type? `Ups! An error of type ${errorState.type} has occurred, please check the uploaded data. Thanks!` : 'Processing Order...'
+            : 'Please complete all mandatory fields to continue!!!'
+            }
+            
+            </Typography>}
 
 
           <FormContext.Provider value={{activeStep, handleBack, handleNext}}>
@@ -212,8 +233,12 @@ const sendData = async(orderData:CheckoutInput)=>{
         {errorState.message}
       </Alert>
       </Snackbar>
-      
-      
+
+      <Snackbar anchorOrigin={{vertical:'bottom', horizontal: 'center'}} open={openMessage} autoHideDuration={6000} onClose={handleCloseMessage}>
+      <Alert onClose={handleCloseMessage} severity="error" sx={{ width: '100%' }}>
+        Please complete all the mandatory fields
+      </Alert>
+      </Snackbar>
       
       
     </Stack>
