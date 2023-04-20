@@ -21,9 +21,7 @@ export const getStaticProps:GetStaticProps= async() =>{
         }
     }
 }
-/* const URLdomain = window.location.host;
-const url= URLdomain.includes('localhost')? 'http://localhost:3000': 'poner vercel'
- */
+
 
 type HomeProps= {
     comics: Comic[],

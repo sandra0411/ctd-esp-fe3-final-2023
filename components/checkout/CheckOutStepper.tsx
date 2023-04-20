@@ -51,7 +51,7 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
         name:'Sandra',
         lastname:'Divan',
         email: 'sandra@gmail.com',
-        adress: 'Pepe 222' ,
+        adress: 'Av. Irigoyen 524' ,
         apartment: 'C',
         floor: undefined,
         city: 'Córdoba',
@@ -182,6 +182,7 @@ const sendData = async(orderData:CheckoutInput)=>{
       
       <Stack sx={{ width: matches? '70%' : '90%'}}>
 
+        
         <Stepper activeStep={activeStep} sx={{mb:4}} orientation= {matches? 'horizontal' :'vertical'}>
 
           <Step>
@@ -205,12 +206,12 @@ const sendData = async(orderData:CheckoutInput)=>{
             {activeStep === 0 && <PersonalDataForm/>}
             {activeStep === 1 && <DeliveryDataForm/>}
             {activeStep === 2 && <PaymentDataForm/>}
-            {activeStep === 3 && <Typography mb={2} color={errorState.type || !isValid ?'red':'green'} sx={{align:'center', fontSize: !isValid? 25: ''}}>
+            {activeStep === 3 && <Typography mb={2} color={errorState.type || !isValid ?'red':'green'} sx={{align:'center', fontSize: !isValid? 25: 20}}>
               
             {
             isValid?
             errorState.type? `Ups! An error of type ${errorState.type} has occurred, please check the uploaded data. Thanks!` : 'Processing Order...'
-            : 'Please complete all mandatory fields to continue!!!'
+            : 'Please go back and complete all mandatory fields to continue!!!'
             }
             
             </Typography>}

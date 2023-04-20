@@ -40,14 +40,14 @@ return (
 
         <Paper elevation={3} sx={{alignSelf:'center', backgroundColor:'green', mt:3, minWidth:'20%' }}>
         <Typography variant='h5' align='center' sx={{
-          color:'white',  margin: matches700? '16px 24px' : '10px 20px'/* mb:2, mt:2, mr:3, ml:3 */, fontSize: matches900? 24: matches700? 20: 15 }} >Enjoy your purchase!</Typography>
+          color:'white',  margin: matches700? '16px 24px' : '10px 20px'/* mb:2, mt:2, mr:3, ml:3 */, fontSize: matches900? 24: matches700? 20: 15 }} >Que disfrutes tu compra!</Typography>
         </Paper>
 
         <PurchaseCard title={order.name} thumbnail={order.image}/>
 
         <Stack justifyContent={'center'} sx={{mb:2, width: matches700? '50%' : '80%', border: '2px solid green', borderRadius: '5px'}}>
             <Typography variant='h6' textAlign={'center'} sx={{fontWeight:'800', mb:1}}>{`${customer.name} ${customer.lastname}`}</Typography>
-            <Typography variant='h6' textAlign={'center'} sx={{mb:1}}>We will send you this great comic to <strong>{`${customer.address.address1}`}</strong> {`city of 
+            <Typography variant='h6' textAlign={'center'} sx={{mb:1}}>We will send you this great comic to the next address:  <strong>{`${customer.address.address1}`}</strong> {`city of 
             ${customer.address.city} (${customer.address.state}).`}</Typography>
             <Typography textAlign={'center'}> You paid <strong>{`U$S ${order.price}`}</strong> </Typography>
             

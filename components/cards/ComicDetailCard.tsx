@@ -75,10 +75,10 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     height:'100%',
                     
                     }}>
-                    <Typography variant='h5' textAlign={'center'} maxWidth={300} sx={{fontSize: matches? 24: 20, fontWeight: 600}}>{title}</Typography>
+                    <Typography variant='h5' textAlign={'center'} maxWidth={300} sx={{fontSize: matches? 24: 20, fontWeight: 600, mt:2}}>{title}</Typography>
                     <Typography variant='body1' textAlign={'justify'} maxWidth={300} sx={{ml: matches? 0: 2, mr: matches? 0: 2}}>{description? description: 'Description coming soon'}</Typography>
                     <Button variant='contained' 
-                    sx={{width:'50%', alignSelf:'center',}}
+                    sx={{width:'50%', alignSelf:'center', mb: 2}}
                     disabled={stock===0? true : false}
                     onClick={goToProduct}
                     > {stock===0? 'Sin Stock': 'Comprar' }</Button>

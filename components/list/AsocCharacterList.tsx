@@ -1,4 +1,3 @@
-import { ExpandLess, ExpandMore, StarBorder } from '@mui/icons-material'
 import { Collapse, List, ListItemButton, ListItemText } from '@mui/material'
 import { getCharacter } from 'dh-marvel/services/marvel/marvel.service'
 import Link from 'next/link'
@@ -33,9 +32,6 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
 
     return (
 
-
-
-
         <List
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
             component="nav"
@@ -54,8 +50,7 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                         variant: 'h6',
                         fontSize: matches? 20 : 16
                     }} />
-                {/* {open ? <ExpandLess /> : <ExpandMore />} */}
-                
+            
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
@@ -63,7 +58,11 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                     {characters?.map(ch =>{
 
                         let text = ch.resourceURI
-                        let result = text.substring(47)
+                        const parts = text.split('/');
+                        const lastPart = parts[parts.length - 1];
+                        const result = lastPart.slice(0, lastPart.length - 1);
+                        
+                        
 
                         return(
             
