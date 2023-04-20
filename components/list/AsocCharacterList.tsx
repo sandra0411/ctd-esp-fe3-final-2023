@@ -54,7 +54,8 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                         variant: 'h6',
                         fontSize: matches? 20 : 16
                     }} />
-                {open ? <ExpandLess /> : <ExpandMore />}
+                {/* {open ? <ExpandLess /> : <ExpandMore />} */}
+                
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
