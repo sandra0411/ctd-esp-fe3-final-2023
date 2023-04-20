@@ -60,7 +60,7 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                         let text = ch.resourceURI
                         const parts = text.split('/');
                         const lastPart = parts[parts.length - 1];
-                        const result = lastPart.slice(0, lastPart.length - 1);
+                        const result = lastPart.slice(0, lastPart.length);
                         
                         
 
