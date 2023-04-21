@@ -38,7 +38,7 @@ const ComicCard: FC<ComicCardProps>= ({id, title, description, thumbnail}) => {
   return (
 
     
-    <Card sx={{ maxWidth: 345, height: "100%", display:'flex', flexDirection: 'column', justifyContent:'space-between' }}>
+    <Card sx={{ height: "100%", display:'flex', flexDirection: 'column', justifyContent:'space-between' }}>
     
       <CardMedia
         sx={{ height: 200,  

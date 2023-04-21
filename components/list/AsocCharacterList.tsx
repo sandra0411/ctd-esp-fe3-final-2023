@@ -19,8 +19,8 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
 
 
     const [open, setOpen] = React.useState(false);
-    const [idCharacter, setIdCharacter]= React.useState<string>('')
-    const [charac, setCharac]= React.useState<string>('')
+    const [idCharacter, setIdCharacter] = React.useState<string>('')
+    const [charac, setCharac] = React.useState<string>('')
     const theme = useTheme();
     const matches = useMediaQuery(theme.breakpoints.up('sm'));
 
@@ -36,7 +36,7 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
             sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}
             component="nav"
             aria-labelledby="nested-list-subheader"
-       
+
         >
 
 
@@ -48,31 +48,33 @@ const AsocCharacterList: FC<AsocCharacterListProps> = ({ characters }) => {
                         color: 'primary',
                         fontWeight: 'medium',
                         variant: 'h6',
-                        fontSize: matches? 20 : 16
+                        fontSize: matches ? 20 : 16,
+                        textAlign: 'center'
+
                     }} />
-            
+
             </ListItemButton>
             <Collapse in={open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
 
-                    {characters?.map(ch =>{
+                    {characters?.map(ch => {
 
                         let text = ch.resourceURI
                         const parts = text.split('/');
                         const lastPart = parts[parts.length - 1];
                         const result = lastPart.slice(0, lastPart.length);
-                        
-                        
 
-                        return(
-            
-                                    <Link href={`/character/${result}`} key={ch.name}>
-                                    
-                                    <ListItemButton  sx={{ pl: 4 } }>
-                                        <ListItemText primary={ch.name} />
-                                    </ListItemButton>
-                                    </Link>
-                            
+
+
+                        return (
+
+                            <Link href={`/character/${result}`} key={ch.name}>
+
+                                <ListItemButton sx={{ pl: 4 }}>
+                                    <ListItemText primary={ch.name} />
+                                </ListItemButton>
+                            </Link>
+
                         )
                     }
 

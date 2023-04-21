@@ -5,7 +5,8 @@ import { useRouter } from 'next/router'
 import { Paper, Stack, Typography } from '@mui/material';
 import PurchaseCard from 'dh-marvel/components/cards/PurchaseCard';
 import useMediaQuery from '@mui/material/useMediaQuery';
-
+import useConfirmation from 'hooks/useConfirmation';
+import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
 
 
 const ConfirmationPage = () => {
@@ -14,8 +15,9 @@ const matches700 = useMediaQuery('(min-width:700px)');
 const matches900 = useMediaQuery('(min-width:900px)');
 
 const router= useRouter();
-const {purchaseInfo}=router?.query
-const info = purchaseInfo ? JSON.parse(purchaseInfo as string) : null;
+const {confirmData}:any = useConfirmation()
+const info = confirmData? confirmData : null;
+
 
 
 if (!info) {

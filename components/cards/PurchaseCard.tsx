@@ -18,13 +18,14 @@ const PurchaseCard: FC<PurchaseCardProps> = ({ title, thumbnail }) => {
     const matches400 = useMediaQuery('(min-width:400px)');
     const matches700 = useMediaQuery('(min-width:700px)');
     const matches900 = useMediaQuery('(min-width:900px)');
+    const min400max700= useMediaQuery('(min-width:400px) and (max-width: 700px)');
     
 
     const Img = styled('img')({
         width: matches700? 200 : '90%',
-        height: matches700? '95%': '80%',
+        height: matches700? '95%': '75%',
         objectFit: matches700? 'contain' : 'fill',
-        objectPosition: 'center',
+        objectPosition: 'center',    
        
     })
 
@@ -58,8 +59,10 @@ const PurchaseCard: FC<PurchaseCardProps> = ({ title, thumbnail }) => {
                 justifyContent: 'center',
                 gap: 5,
                 height: matches700? 'fit-content': '10%',
+                pt:3,
+                
             }}>
-                <Typography variant='h5' sx={{ mr: 2, fontSize: matches400? '24px' : '18px' }}>{title}</Typography>
+                <Typography variant='h5' textAlign={'center'} sx={{  fontSize: matches700? '24px' : min400max700? '18px' : '17px', mr: matches400? 2 : 0 }}>{title}</Typography>
 
 
             </Box>
