@@ -81,7 +81,7 @@ const ComicDetailCard:FC<ComicDetailCardProps> = ({comic}) => {
                     sx={{width:'50%', alignSelf:'center', mb: 2}}
                     disabled={stock===0? true : false}
                     onClick={goToProduct}
-                    > {stock===0? 'Sin Stock': 'Comprar' }</Button>
+                    > {stock===0? 'Without Stock': 'Buy it' }</Button>
                 </Box>
 
                 <Box sx={{ mr: 2, minWidth:'15%', display:'flex', flexDirection: 'column' ,alignItems:'center' }}>

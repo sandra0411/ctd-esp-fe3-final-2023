@@ -48,6 +48,7 @@ const Faqs:NextPage<FaqProps> = ({faq}) => {
       <Typography 
       variant="h1" 
       component="h2" 
+      textAlign={'center'}
       sx={{
         fontSize:{ xs: 25, sm: 45, md: 50 }, 
         mb:5, 
@@ -55,7 +56,7 @@ const Faqs:NextPage<FaqProps> = ({faq}) => {
         alignSelf:'center',
         fontWeight:{ xs: 600, sm: 400}
       }}>
-        Preguntas Frecuentes
+        Frequently Asked Questions
       </Typography>
 
       {faq.map(q => <AccordionComp key={q.id} title={q.question} text={q.answer}/>)}

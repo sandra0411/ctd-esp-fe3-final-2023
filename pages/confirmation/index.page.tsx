@@ -42,7 +42,7 @@ return (
 
         <Paper elevation={3} sx={{alignSelf:'center', backgroundColor:'green', mt:3, minWidth:'20%' }}>
         <Typography variant='h5' align='center' sx={{
-          color:'white',  margin: matches700? '16px 24px' : '10px 20px'/* mb:2, mt:2, mr:3, ml:3 */, fontSize: matches900? 24: matches700? 20: 15 }} >Que disfrutes tu compra!</Typography>
+          color:'white',  margin: matches700? '16px 24px' : '10px 20px'/* mb:2, mt:2, mr:3, ml:3 */, fontSize: matches900? 24: matches700? 20: 15 }} >Enjoy your purchase!</Typography>
         </Paper>
 
         <PurchaseCard title={order.name} thumbnail={order.image}/>

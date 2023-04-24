@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import { Box, Button, Container, Paper, Typography } from '@mui/material'
 import styled from "@emotion/styled"
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 
 import { Character } from './Character.types'
@@ -12,6 +13,8 @@ export type CharacterCardProps = {
 
 const CharacterCard:FC<CharacterCardProps> = ({character}) => {
 
+    const matches500 = useMediaQuery('(min-width:500px)');
+
     const {
         id,
         name,
@@ -21,7 +24,7 @@ const CharacterCard:FC<CharacterCardProps> = ({character}) => {
 
 
     const Img = styled('img')({
-        width: 300,
+        width: matches500? 300 : 250,
         height: '100%',
         objectFit: 'contain',
         objectPosition: 'center',
@@ -35,6 +38,7 @@ const CharacterCard:FC<CharacterCardProps> = ({character}) => {
             <Paper
                 sx={{
                     display: 'flex',
+                    flexDirection: matches500? 'row' : 'column',
                     alignItems: 'center',
                     gap: 2,
                     overflow: 'hidden',
@@ -49,12 +53,11 @@ const CharacterCard:FC<CharacterCardProps> = ({character}) => {
                     display: 'flex', 
                     flexDirection:'column', 
                     alignItems:'center',
-                    /* justifyContent:'flex-between',  */
                     gap:5,                    
                     height:'fit-content',
                     }}>
-                    <Typography variant='h4'>{name}</Typography>
-                    <Typography variant='body1' sx={{mr:2}}>{description? description: 'Description coming soon'}</Typography>
+                    <Typography variant='h4' textAlign={'center'} sx={{fontSize: matches500? '34px': '30px'}}>{name}</Typography>
+                    <Typography variant='body1' textAlign={'center'} sx={{mr:2, mb: matches500? '' : 2}}>{description? description: 'Description coming soon'}</Typography>
                     
                 </Box>
 

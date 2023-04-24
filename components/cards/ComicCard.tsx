@@ -61,17 +61,19 @@ const ComicCard: FC<ComicCardProps>= ({id, title, description, thumbnail}) => {
         <Button 
         size="small" 
         onClick={()=> Router.push(`/comics/${id}`)}
-        sx={{fontWeight:600}}
+        sx={{fontWeight:400}}
+        variant='contained'
         >
-          Ver detalle
+        Detail
         </Button>
         <Button 
         size="small" 
         onClick={()=>Router.push(`/checkout?comicId=${id}`)}
         disabled={hasStock===0? true: false}
-        sx={{fontWeight:600, color:hasStock===0? 'gray' : ''}}
+        sx={{fontWeight:400, color:hasStock===0? 'gray' : ''}}
+        variant='contained'
         >
-          Comprar
+          Buy
         </Button>
       </CardActions>
     </Card>

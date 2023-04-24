@@ -1,9 +1,10 @@
 
 
-import { CircularProgress, Grid, Pagination, Stack } from '@mui/material'
+import { Grid, Pagination, Stack } from '@mui/material'
 import React, { FC } from 'react'
 import ComicCard from '../cards/ComicCard'
 import { Comic, dataComics } from 'dh-marvel/pages/api/comics/types'
+import SkeletonFeedback from './Skeleton'
 
 
 type HomeProps = {
@@ -47,7 +48,9 @@ const Home: FC<HomeProps> = ({ comics, pages }) => {
                 <Pagination count={totalPages} page={page} onChange={handleChange} boundaryCount={0} />
             </Stack>
 
-            {isLoading? <CircularProgress sx={{alignSelf: 'center'}}/>: 
+            {isLoading? 
+            <SkeletonFeedback/>
+            : 
 
             <Grid container rowSpacing={3} >
 

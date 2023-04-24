@@ -25,7 +25,8 @@ const PurchaseCard: FC<PurchaseCardProps> = ({ title, thumbnail }) => {
         width: matches700? 200 : '90%',
         height: matches700? '95%': '75%',
         objectFit: matches700? 'contain' : 'fill',
-        objectPosition: 'center',    
+        objectPosition: 'center',   
+        borderRadius:'5px' 
        
     })
 
