@@ -111,10 +111,7 @@ const sendData = async(orderData:CheckoutInput)=>{
     setTimeout(()=>{
 
       router.push('/confirmation')
-      setConfirmData(result)
-      /* router.push(
-        {pathname: '/confirmation',
-         query:{purchaseInfo: JSON.stringify(result)} }) */
+      setConfirmData(result.data)
     }, 1000)
     
   }

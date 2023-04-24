@@ -6,7 +6,7 @@ import { Paper, Stack, Typography } from '@mui/material';
 import PurchaseCard from 'dh-marvel/components/cards/PurchaseCard';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import useConfirmation from '../../hooks/useConfirmation';
-import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
+import { IConfirmationContext } from 'dh-marvel/components/context/ConfirmationDataProvider';
 
 
 const ConfirmationPage = () => {
@@ -14,13 +14,15 @@ const ConfirmationPage = () => {
 const matches700 = useMediaQuery('(min-width:700px)');
 const matches900 = useMediaQuery('(min-width:900px)');
 
+
 const router= useRouter();
-const {confirmData}:any = useConfirmation()
-const info = confirmData? confirmData : null;
+const {confirmData}:IConfirmationContext = useConfirmation()
+console.log(confirmData)
+const info = confirmData;
 
 
 
-if (!info) {
+if (info?.customer.name==='') {
 
     if (typeof window !== 'undefined') {
       router.push('/');
@@ -32,9 +34,9 @@ if (!info) {
     );
 }
 
-const customer= info.data.customer
-const order= info.data.order
-const card= info.data.card
+const customer= info.customer
+const order= info.order
+const card= info.card
 
 return (
 
