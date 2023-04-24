@@ -39,4 +39,30 @@ export type CheckoutDataType = {
     ownerName: string,
     expirationDate: string,
     securityCode: string
-  }
+}
+
+export const defValCheckInput= {
+    customer: {
+        name: '',
+        lastname: '',
+        email: '',
+        address: {
+            address1: '',
+            address2: '' || undefined,
+            city: '',
+            state: '',
+            zipCode: ''
+        }
+    },
+    card: {
+        number: '',
+        cvc: '',
+        expDate: '',
+        nameOnCard: ''
+    },
+    order: {
+        name: '',
+        image: '',
+        price: 0,
+    }
+}

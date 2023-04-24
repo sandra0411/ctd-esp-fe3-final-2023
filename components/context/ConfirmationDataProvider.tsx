@@ -1,15 +1,20 @@
 
 import { createContext, Dispatch, SetStateAction, useState } from "react";
-import { CheckoutInput } from "dh-marvel/features/checkout/checkout.types";
+import { CheckoutInput, defValCheckInput } from "dh-marvel/features/checkout/checkout.types";
 export interface IConfirmationContext {
-  confirmData: CheckoutInput | undefined;
-  setConfirmData: Dispatch<SetStateAction<CheckoutInput | undefined>> | undefined;
+  confirmData: CheckoutInput;
+  setConfirmData: Dispatch<SetStateAction<CheckoutInput>>;
 }
 
-const ConfirmationContext = createContext<IConfirmationContext | undefined>(undefined);
+const defaultValues= {
+  confirmData: defValCheckInput,
+  setConfirmData:() => console.log('')
+}
+
+const ConfirmationContext = createContext<IConfirmationContext>(defaultValues);
 
 export const ConfirmationProvider = ({ children }: { children: React.ReactNode }) => {
-  const [confirmData, setConfirmData] = useState<CheckoutInput>();
+  const [confirmData, setConfirmData] = useState<CheckoutInput>(defValCheckInput);
 
   return (
     <ConfirmationContext.Provider value={{ confirmData, setConfirmData }}>

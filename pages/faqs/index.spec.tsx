@@ -9,7 +9,7 @@ describe('Faqs page', () => {
                 question: "¿Cuántos comics tienen?",
                 answer: "Actualmente disponemos de toda la colección de Marvel. Algunos ejemplares pueden contar con poca o nula disponibilidad por el momento. Para mas información puede acceder a https://marvel.com"}
                   ]} />)
-            const title = screen.getByText('Preguntas Frecuentes')
+            const title = screen.getByText('Frequently Asked Questions')
             expect(title).toBeInTheDocument()
         })
         it('should render the question', () => {

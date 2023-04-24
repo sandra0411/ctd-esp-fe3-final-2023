@@ -15,7 +15,7 @@ import PaymentDataForm from './PaymentDataForm';
 import {useRouter} from 'next/router';
 import { CheckoutInput, CheckoutDataType } from 'dh-marvel/features/checkout/checkout.types';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import useConfirmation from 'hooks/useConfirmation';
+import useConfirmation from '../../hooks/useConfirmation';
 
 
 
@@ -41,7 +41,7 @@ export default function CheckOutStepper({comic}:ComicCheckoutProps) {
   const [open, setOpen] = React.useState(false)
   const [openMessage, setOpenMessage] = React.useState(false)
   const [errorState, setErrorState]= React.useState({type:'', message:''})
-  const { setConfirmData }: any = useConfirmation();
+  const { setConfirmData } = useConfirmation();
 
 
   const router= useRouter();

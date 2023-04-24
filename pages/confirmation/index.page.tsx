@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { Paper, Stack, Typography } from '@mui/material';
 import PurchaseCard from 'dh-marvel/components/cards/PurchaseCard';
 import useMediaQuery from '@mui/material/useMediaQuery';
-import useConfirmation from 'hooks/useConfirmation';
+import useConfirmation from '../../hooks/useConfirmation';
 import { CheckoutInput } from 'dh-marvel/features/checkout/checkout.types';
 
 
